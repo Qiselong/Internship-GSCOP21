@@ -58,17 +58,13 @@ def case_observation(case, verbose = False):
 
     if numpy.trace(T3) != 0 or numpy.trace(T5 !=0): #ie there exists an odd-loop in the graph associated to M
         return True
+    flag = False
+
+    #4-cycle detection
+    for start in range(10):
+        flag = flag or Cycle4(4, [start], start, M)
+    return flag
     
-# some tests
-#r = randint(0, 1048575)
-#rbase = base_convert(r, 4)
-#print(r, rbase)
-#while len(rbase) != 10:
- #   rbase = rbase + [0]
-#case_observation(rbase)
-
-
-
 ## Next section is about plotting / was used to check what was missing in the automatic checking. Was useful to show that i forgot to check 4-cycles.
 def case_study(case):
     #next section is identical to case_observation
@@ -96,30 +92,36 @@ def case_study(case):
                 plt.plot(x,y,z, 'b')
     plt.show()
 
-def cycle4(case):
+def Cycle4(depth, visited, current, M):
     '''
-    checks the existence of 4-cycles.
+    M: adjacency matrix
+    current: integer, index of where we currently are
+    depth: integer. ends at 0
+    visited: list of where we can't go
     '''
-    #next section is identical to case_observation
-    M = numpy.zeros((10,10))
-     
-    indexes = [(0, 1), (0,2), (0,3), (0,4), (1,2), (1,3), (1,4), (2,3), (2,4), (3,4)]
 
-    for i in range(len(case)):
-        ip, jp = indexes[i]
-        i,j = fill( ip, jp , case[i])
-        M[i,j] = 1
+    if depth == 0:
+        if visited[0]==visited[-1]:
+            return True
+        return False
+    # if does not work we must create a list available of node we can travel to (we can't go to a node we already visited; so if the list turn out to be empty: retrun false)
+    available = []
+    for i in range(10):
+        
+        if M[current, i]==1 and not(i in visited) or (i==visited[0] and depth ==1): #complicated way to say it but "it just works!"
+            
+            available.append(i)
 
-    ## TODO
-    for index_start in range(10):
-        MP = 4  #moves remaining
-        visited = [index_start] #nodes visited
-        current = index_start
-        availables = []
-        for i in range(10):
-            if M[current, i] == 1 and not(M[current, i] in visited):
-                availables.append(i) 
-    return None
+    #print("visited: ", visited, "\navailables: ", available, "\ndepth:", depth)
+    if len(available) == 0:
+        return False
+    flag = False
+    for destination in available:
+        
+        flag = flag or Cycle4(depth-1, visited+[destination], destination, M)
+    return flag
+
+
 
 
 
@@ -133,7 +135,7 @@ for i in range(1048575):
 
     #now we look for odd-cycles
     if not case_observation(case, verbose=False): # at this point we are sure there is no
-       #print("\nAnomaly: \n", case)
-       #case_study(case) 
-       anomalies +=1
+       print("\nAnomaly: \n", case)
+       case_study(case) 
+       #anomalies +=1
 print(anomalies)
