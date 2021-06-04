@@ -40,6 +40,7 @@ def fill(i,j,k):
 def case_observation(case, verbose = False):
     '''
     take a list (case) and convert it in a matrix. Then upgrades to the power 3 and checks if there is a number =! 0 on the main diagonal.
+    New addition: checks the presence of 4-cycles by DSF
     '''
     M = numpy.zeros((10,10))
      
@@ -64,7 +65,7 @@ def case_observation(case, verbose = False):
     for start in range(10):
         flag = flag or Cycle4(4, [start], start, M)
     return flag
-    
+
 ## Next section is about plotting / was used to check what was missing in the automatic checking. Was useful to show that i forgot to check 4-cycles.
 def case_study(case):
     #next section is identical to case_observation
@@ -77,6 +78,7 @@ def case_study(case):
         i,j = fill( ip, jp , case[i])
         M[i,j] = 1
 
+    ## coordinates to plot it in 3D
     coordinates= [[0 ,3 ,-3 ] ,[3 ,0 ,-3 ] ,[ 2,-3 ,-3 ] ,[-2 , -3, -3] ,[-3 ,0 ,-3 ],[0 ,3 ,3 ] ,[3 ,0 ,3] ,[ 2,-3 ,3 ] ,[-2 , -3, 3] ,[-3 ,0 ,3 ]  ]
 
     fig = plt.figure()
@@ -134,7 +136,7 @@ for i in range(1048575):
         case = [0] + case
 
     #now we look for odd-cycles
-    if not case_observation(case, verbose=False): # at this point we are sure there is no
+    if not case_observation(case, verbose=False): # at this point we are sure there is no 3/4/5-cycle. So if we are here it must be a counterexample
        print("\nAnomaly: \n", case)
        case_study(case) 
        #anomalies +=1
