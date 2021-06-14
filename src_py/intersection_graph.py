@@ -5,6 +5,7 @@
 # let a be an element of R^d. a consists in a list of size 2, each being a point. 
 # a point itself if a list of size d. Example with d = 3, an element can be eA = [[0,0,0],[1,1,0.5]]. We always take eA[0][i] < eA[1][i] for all i.
 import igraph
+
 import random
 import matplotlib.pyplot as plt
 
@@ -19,9 +20,9 @@ import matplotlib.pyplot as plt
 #igraph.plot(g2) "good" plot with basic options.
 
 ### PARAMETERS
-d = 1 # dimension
-n = 10 # number of elements
-
+d = 5 # dimension
+n = 16 # number of elements
+colorsX11 = ['#FF0000', '#00FFFF', '#000000', '#0000FF', '#8A2BE2', '#A52A2A', '#7FFF00', '#FF7F50', '#DC143C', '#B8860B', '#FF00FF', '#228B22', '#BEBEBE', '#00FF00','#CD5C5C', '#800000']
 
 elements = [] # list of our elements
 
@@ -74,11 +75,26 @@ def plot1D(elements):
         plt.plot([e[0], e[1]],[ei*0.2, ei*0.2], color = 'b')
     plt.show()
 
+def plotDD(elements, colors):
+    '''
+    does the plot in any dimension using the projection trick.
+    '''
+    fig, axs = plt.subplots(len(elements[0][0]))
+    for di in range(len(elements[0][0])):
+        for ei in range(len(elements)):
+            e = elements[ei]
+            axs[di].plot([e[0][di], e[1][di]],[ei*0.2, ei*0.2], color = colors[ei])
+    plt.show()
 
 elements = random_elements(n,d)
 graph = igraph.Graph(n)
 
 fill_edges(elements, graph)
-plot1D(elements)
-igraph.plot(graph)
 
+## Some properties of the graph
+print("\nClique number: ", graph.clique_number())
+print("Maximal independent set: ", graph.independence_number())
+
+## Some plots
+plotDD(elements, colorsX11)
+igraph.plot(graph, vertex_color = colorsX11)
