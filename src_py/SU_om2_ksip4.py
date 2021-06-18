@@ -138,9 +138,9 @@ for i in range(nG):
     igraph.plot(g, "images/SU_om2_ksip4/natgraph_"+str(i)+'.png')
     g = epuration(g)
     degs = g.degree()
-    visual_style = {}
-    visual_style["vertex_color"] = [color_dict[v] for v in degs]
-    igraph.plot(g, **visual_style)#, "images/SU_om2_ksip4/puregraph_"+str(i)+'.png')
+    #visual_style = {}
+    #visual_style["vertex_color"] = [color_dict[v] for v in degs]
+    igraph.plot(g, "images/SU_om2_ksip4/puregraph_"+str(i)+'.png',vertex_color = [color_dict[v] for v in degs])
 
 #we observe now the formations of two things: agglomerate of smallest
 #  cycles and bridges.
