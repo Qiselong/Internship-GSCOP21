@@ -8,6 +8,7 @@ import igraph
 
 import random
 import matplotlib.pyplot as plt
+import time
 
 ### BASIC IGRAH MANIPULATIONS (it was my first time using it)
 #print(igraph.__version__)
@@ -20,7 +21,7 @@ import matplotlib.pyplot as plt
 #igraph.plot(g2) "good" plot with basic options.
 
 ### PARAMETERS
-d = 5 # dimension
+d = 2 # dimension
 n = 16 # number of elements
 colorsX11 = ['#FF0000', '#00FFFF', '#000000', '#0000FF', '#8A2BE2', '#A52A2A', '#7FFF00', '#FF7F50', '#DC143C', '#B8860B', '#FF00FF', '#228B22', '#BEBEBE', '#00FF00','#CD5C5C', '#800000']
 
@@ -86,15 +87,22 @@ def plotDD(elements, colors):
             axs[di].plot([e[0][di], e[1][di]],[ei*0.2, ei*0.2], color = colors[ei])
     plt.show()
 
-elements = random_elements(n,d)
-graph = igraph.Graph(n)
+ts = time.clock_gettime_ns(time.CLOCK_BOOTTIME)
 
-fill_edges(elements, graph)
+
+
+for i in range(10000):
+    elements = random_elements(n,d)
+    graph = igraph.Graph(n)
+    om = graph.clique_number()
+    ksip= graph.independence_number()
+    fill_edges(elements, graph)
 
 ## Some properties of the graph
-print("\nClique number: ", graph.clique_number())
-print("Maximal independent set: ", graph.independence_number())
+#print("\nClique number: ", graph.clique_number())
+#print("Maximal independent set: ", graph.independence_number())
+print("Execution time (ms): ",(time.clock_gettime_ns(time.CLOCK_BOOTTIME)-ts)/1000000)
 
 ## Some plots
-plotDD(elements, colorsX11)
-igraph.plot(graph, vertex_color = colorsX11)
+#plotDD(elements, colorsX11)
+#igraph.plot(graph, vertex_color = colorsX11)
