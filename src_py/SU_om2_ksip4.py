@@ -130,7 +130,7 @@ def epuration(graph):
     return graph
 
 
-color_dict = {2: '#FF0000', 3: '#0000FF' }
+color_dict = {2: '#FF0000', 3: '#0000FF', 1:'#000000' }
         
 
 for i in range(nG):
@@ -184,4 +184,4 @@ for i in range(nG):
 # let call m the legth of the border between him and his neighbour.
 # if m = 2, then we add at least 2 other edges otherwise we have 
 # a triangle.
-# suppose m > 
+# suppose m > ...
