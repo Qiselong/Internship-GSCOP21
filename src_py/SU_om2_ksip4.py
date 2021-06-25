@@ -82,8 +82,8 @@ def special_graph(n, om=10, delta = 10, gtype='none'):
         omega = graph_copy.clique_number()
         maxd = graph_copy.maxdegree()
         lastdeg = graph_copy.degree(nel+1)
-        print(omega, maxd, lastdeg, nel)
-        print(omega <= om and maxd<=delta and lastdeg != 0)
+        #print(omega, maxd, lastdeg, nel)
+        #print(omega <= om and maxd<=delta and lastdeg != 0)
         
 
         if omega <= om and maxd<=delta and lastdeg != 0:
@@ -119,21 +119,63 @@ def epuration(graph):
     epurates the graph by removing one by one the vertices of degree one.
     '''
 
-    deleted = 0
-    i=0
-    while i!= nV-deleted:
-        i+=1
-        if graph.degree(i) == 1:
-            graph.delete_vertices(i)
-            deleted +=1 
-            i = 0
+    #deleted = 0
+    #i=0
+
+    nod1 = False
+    nVertex = len(graph.degree())
+ 
+    L = graph.degree()
+    while L.count(1) !=0:
+        to_del=[]
+        for i in range(len(L)):
+            if L[i] == 1:
+                to_del.append(i)
+        graph.delete_vertices(to_del)
+        L = graph.degree()
     return graph
 
 
+
+
+
+def rid_neighboors2(graph):
+    nv = len(graph.degree())
+    nT = nv #total number of vertices at start
+    flag = True #set to false when a full travel with to_del == []
+    n1 = 0 # number of vertices deleted because of degree 1
+    n22 = 0 # number of time we deleted  because of degree 2 and a neighboor aswell
+    n0 = 0 # number of vertices deleted because of deg 0
+    while flag:
+        nv = len(graph.degree())
+        to_del = []
+        for i in range(nv):
+            if graph.degree(i) == 0:
+                to_del.append(i)
+                n0+=1
+            if graph.degree(i)==1:
+                to_del.append(i)
+                n1 +=1
+            if graph.degree(i) == 2:
+                K = graph.neighborhood([i])
+                for j in range(len(K)):
+                    if graph.degree(j)==2 and j !=i:
+                        n22 +=1
+                        to_del.append(i)
+                        to_del.append(j)
+
+        graph.delete_vertices(to_del)
+        if to_del == []:
+            flag = False    
+    
+    return graph
+
+#better visual style to visualize vertices and their degrees        
 color_dict = {2: '#FF0000', 3: '#0000FF', 1:'#000000' }
-        
+
 
 for i in range(nG):
+    print('graph n°'+str(i)+': ', end = "")
     g = special_graph(nV, 2, 3)
     igraph.plot(g, "images/SU_om2_ksip4/natgraph_"+str(i)+'.png')
     g = epuration(g)
@@ -141,7 +183,10 @@ for i in range(nG):
     #visual_style = {}
     #visual_style["vertex_color"] = [color_dict[v] for v in degs]
     igraph.plot(g, "images/SU_om2_ksip4/puregraph_"+str(i)+'.png',vertex_color = [color_dict[v] for v in degs])
+    g = rid_neighboors2(g)
 
+    degs = g.degree()
+    igraph.plot(g, "images/SU_om2_ksip4/graph_minus2_"+str(i)+'.png')#,vertex_color = [color_dict[v] for v in degs])
 #we observe now the formations of two things: agglomerate of smallest
 #  cycles and bridges.
 # lemma: if we can 3-col the agglomerate of smallest 
