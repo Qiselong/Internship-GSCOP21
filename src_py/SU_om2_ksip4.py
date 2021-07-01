@@ -12,23 +12,18 @@ import matplotlib.pyplot as plt
 import time
 import numpy
 
-nV = 50
-nG = 10
+import sys
+import copy
 
 
-def intersection(eA, eB):
-    '''
-    determines if eA and eB are intersecting or not using the projections. 
-    '''
-    for i in range(len(eA[0])):
-        al = eA[0][i] #right point
-        ar = eA[1][i] #left point
-        bl = eB[0][i]
-        br = eB[1][i]
-        #it does not work if the left most point of one is less than the right most point of the other
-        if (ar<bl) or (br<al):
-            return False
-    return True
+
+# some parameters
+nV = 100
+scale = 5
+nG = 1
+
+toolbar_width = nG
+
 
 def intersection(eA, eB):
     '''
@@ -68,9 +63,11 @@ def special_graph(n, om=10, delta = 10, gtype='none'):
     elements = [] # list of our elements
 
     #first element
-    LLx, LLy = numpy.random.normal(scale = 2, size= 2)
+    LLx, LLy = numpy.random.normal(scale = scale, size= 2)
     elements.append([[LLx, LLy], [LLx+1, LLy+1]])
     elements_copy = elements.copy() #copy
+
+    
 
     nel = 0
     while nel < n:
@@ -94,7 +91,7 @@ def special_graph(n, om=10, delta = 10, gtype='none'):
         graph_copy = igraph.Graph(n+1) # wipe the graph
 
     graph = fill_edges(elements, graph)
-    print("Execution time (ms): ",(time.clock_gettime_ns(time.CLOCK_BOOTTIME)-ts)/1000000)
+    #print("\nExecution time (ms): ",(time.clock_gettime_ns(time.CLOCK_BOOTTIME)-ts)/1000000)
     return graph
 
 #g = special_graph(nV, 2, 3)
@@ -173,9 +170,65 @@ def rid_neighboors2(graph):
 #better visual style to visualize vertices and their degrees        
 color_dict = {2: '#FF0000', 3: '#0000FF', 1:'#000000' }
 
+def are_neighbours(M, i1, i2, j1, j2):
+    '''
+    determines if i and j are adjacent in M.
+    i1, j1, .. are vertices of the graph.
+    '''
+    return (i1 == j1 or i1 == j2 or i2 == j1 or i2 == j2) and (M[i1][i2]!=0) and (M[j1][j2]!=0) 
+
+def base_convert(i, b):
+    result = []
+    while i > 0:
+            result.insert(0, i % b)
+            i = i // b
+    return result
+
+def hard_edge_col(graph):
+    '''
+    starts by coloring all the edges with three colors, then checks 
+    if the coloring is proper (ie two edges with same color share 
+    no common end point)
+    '''
+    #maximum number of colorations to be tested is 3**n; n being the number
+    # of edges. Given the problem you can assume n ~ 3 nV.
+    Mpure = graph.get_adjacency() #adjacency matrix
+
+    n = 0
+    for mi in Mpure:
+        n+=sum(mi)
+    n//2 # number of edges
+
+    case = 0
+    
+    for i in range(3**n -1):
+        #case selection
+        case = base_convert(i, 3)
+        
+        #coloration
+        Mcopy = copy.copy(Mpure)
+        xtmp = 0 #number of edges colored
+        for i in range(len(Mpure)):
+            for j in range(i):
+                if Mpure[i][j]!=0:
+                    Mcopy[i][j] = case[xtmp]
+                    xtmp+=1   
+    
+        #proper coloration verification
+        for i in range(len(Mpure)):
+            for j in range(i):
+                
+    
+
+# setup toolbar
+def toolbar():
+    sys.stdout.write("[%s]" % (" " * toolbar_width))
+    sys.stdout.flush()
+    sys.stdout.write("\b" * (toolbar_width+1)) # return to start of line, after '['
+
 
 for i in range(nG):
-    print('graph n°'+str(i)+': ', end = "")
+    #print('graph n°'+str(i)+': ', end = "")
     g = special_graph(nV, 2, 3)
     igraph.plot(g, "images/SU_om2_ksip4/natgraph_"+str(i)+'.png')
     g = epuration(g)
@@ -186,7 +239,10 @@ for i in range(nG):
     g = rid_neighboors2(g)
 
     degs = g.degree()
-    igraph.plot(g, "images/SU_om2_ksip4/graph_minus2_"+str(i)+'.png')#,vertex_color = [color_dict[v] for v in degs])
+    igraph.plot(g, "images/SU_om2_ksip4/graph_minus2_"+str(i)+'.png',vertex_color = [color_dict[v] for v in degs])
+    toolbar()
+    #sys.stdout.write("-")
+    #sys.stdout.flush()
 #we observe now the formations of two things: agglomerate of smallest
 #  cycles and bridges.
 # lemma: if we can 3-col the agglomerate of smallest 
