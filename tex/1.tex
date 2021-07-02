@@ -1,13 +1,111 @@
 \documentclass[12pt]{article}
+
+\usepackage{amsthm}
+
+% collectivised from: https://www.overleaf.com/learn/latex/Theorems_and_proofs#Theorem_styles
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+%
+
 \begin{document}
 
+\begin{remark}
+    This statement is true, I guess.
+\end{remark}
+
+\begin{definition}[Fibration]
+    A fibration is a mapping between two topological spaces that has the homotopy lifting property for every space $X$.
+\end{definition}
+
+\begin{lemma}
+    Given two line segments whose lengths are $a$ and $b$ respectively there 
+    is a real number $r$ such that $b=ra$.
+\end{lemma}
+    
+\begin{proof}
+    To prove it by contradiction try and assume that the statement is false,
+    proceed from there and at some point you will arrive to a contradiction.
+\end{proof}
+
+
+\newpage    
 \section{Super vertex coloring}
 
-Definition: Let $G$ be an undirected graph. $c: V(G) \rightarrow \{1, 2, ... , k\}$ 
-is a super vertex coloring iff:
-$\forall v_1, v_2 \in V(G), c(v_1) = c(v_2) \Rightarrow v_1 \notin N(v_2) 
-and there is no u \in V(G) such that v_1, v_2 \in N(u)$
+\begin{definition}[Super vertex coloring]
+    Let $G$ be an undirected graph.\\ $c: V(G) \rightarrow \{1, 2, ... , k\}$ is a super vertex coloring iff: 
+    $$\forall v_1, v_2 \in V(G), c(v_1) = c(v_2) \Rightarrow v_1 \notin N(v_2), \forall u \in N(v_1), v_2\notin N(u)$$
+    We say that $G$ is $n$-super colorable if we can find a super vertex coloring using $n$ colors.
+\end{definition}
 
-\section{i dont know yet}
+%\subsection{Using a $K_n$ as a tool}
+Let $K_n$ be a complete graph. We can clearly find a super vertex coloring by assigning a different color to each vertex. Also by [1] (lemma 2), We
+can find an edge coloring using $n$ colors (respectively $n-1$) if $n$ is odd (respectively even).
+
+\begin{theorem}
+    If $G$ admitt a super vertex coloring using $n$ colors, then we can find and $n$ or $n-1$ coloring of it's edges.
+\end{theorem}
+
+\begin{proof} 
+The idea is to use the $K_n$ graph as a tool to decide which color to assign to each edge. \\
+Let $G$ be a $n$-super colorable graph. Call $c_g$ such a coloration. Let $K_n$ and denote by $(k_i)$ it's vertices. As stated earlier,
+we can find a $n$ (or $n-1$) edge coloration of it. We shall call this edge coloration $e_k$.  \\
+Then, assign to the $k_i$ a different number in $\{1,... , n\}$. Call $c_k$ such a coloration. \\
+Let $v_i v_j$ be an edge of $G$. Find $k_1, k_2$ the vertices of $K_n$ such that $c_g(v_i) = c_k(k_1)$ and $c_g(v_j) = c_k(k_2)$ assign to $v_iv_j$ the color 
+$e_k(k_1k_2)$. \\
+Now let's prove by contradiction that such a coloring of the edges is proper. Assume the existence of $v_1, v_2, v_3$ such that $v_1v_2, v_2v_3 \in E(G)$ are assigned to the same color.
+Let $k_1, k_2, k_3$ such that $c_g(v_i) = c_k(k_i)$. As $e_k$ is a proper edge coloring, if $e_k(k_1k_2) = e_k(k_2k_3)$, then $k_1=k_3$. Thus, it would mean that
+$c_g(v_1) = c_g(v_3)$, ie $c_g$ is not a super vertex coloring of $G$.
+\end{proof}
+
+\section{Special graphs}
+
+\subsection{Trees}
+
+\begin{lemma}
+    Let $G$ be a tree with maximum degree $\Delta$. Then $G$ is $\Delta + 1$ super colorable.
+\end{lemma}
+
+\begin{proof}
+    The proof is done by induction on $|E(G)|$.\\
+    When $|E(G)| = 0$, $\Delta = 0$ and a super coloration is simply assigning the same color to each vertex.\\
+    Let $G$ be a graph with $\Delta$ maximum degree. Find $v$ such that $d(v)=1$, call $v'$ it's only neighbour. 
+    As per the induction property $G-v$ admitts a $\Delta +1$ super vertex coloring. As the degree of $v'$ in $G-v$ is at most $\Delta -1$, it means it 
+    lacks at least a color among the color of $v'$ and it's neighbours. Choose it for $v$.
+\end{proof}
+
+\subsection{Interval graphs}
+
+\begin{lemma}
+    Let $G$ be an interval intersection graph with maximum degree $\Delta$ . Then $G$ is $\Delta+1$ super colorable. 
+\end{lemma}
+
+\begin{proof}
+    The proof is done by induction on the number of intervals.\\
+    The result is trivial with one interval. \\ \\
+    Let $G$ an interval graph. Call $I_i$ it's intervals and $v_i$ it's associated vertices.
+    We can find an ordering of it's intervals. $I_1, I_2, ...$ such that $\forall i, r_i < r_{i+1}$.
+    Consider $G-v_1$. By the induction property, it admitts a $\Delta(G-I_1)+1$ super vertex coloration. \\
+    If $\Delta(G) > \Delta(G-v_1)$, then just assign to $v_1$ the newly available color.\\ \\
+    Suppose $d_G(v_1) = k-1 < \Delta(G)$. The neighbours of $v_1$ are $v_2, ... , v_k$. Observe that each two of the neighbours of $v_1$ are neighbours in G:
+    Indeed, they share at least $r_1$ as a common point. \\
+    Moreover, we can state that $\forall i, j \in \{2, ... k\}, i<j \Rightarrow N(i) \subset N(j)$:\\
+    Let $i, j$ such that $v_i, v_j$ and $v_1$ are neighbours. Let $v^*$ an neighbour of $v_i$, such as $v^* \notin N(v_1)$ 
+    \begin{itemize}
+        \item As $v_i$ and $v^*$ are neighbours, $l^* < r_i$; so $l^* < r_j$ by construction.
+        \item As $v^*$ and $v_1$ are not neighbours, $r_1<l^*$
+        \item As $v_j$ and $v_1$ are neighbours, $l_j<r_1$
+    \end{itemize}
+    Thus, $l_j< l^* < r_j$; so $I^*$ and $I_j$ share a common point in $l^*$. \\
+    So each neighbour of $I_1$ is also a neighbour of $I_k$. As $d_{G-v_1}(v_k)$ is at most $\Delta(G)-1$; we deduce that a least one color has to be missing
+    among the neighbours of $v_k$ (including itself); choose this color for $v_1$.  
+\end{proof}
+
+\section{References}
+[1] V.A. Bojarshinov, Edge and total coloring of interval graphs, Disctrete Applied Mathematics 114 (2001) 23-28
 
 \end{document}
