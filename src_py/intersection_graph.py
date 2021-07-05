@@ -87,21 +87,21 @@ def plotDD(elements, colors):
             axs[di].plot([e[0][di], e[1][di]],[ei*0.2, ei*0.2], color = colors[ei])
     plt.show()
 
-ts = time.clock_gettime_ns(time.CLOCK_BOOTTIME)
+#ts = time.clock_gettime_ns(time.CLOCK_BOOTTIME)
 
 
 
-for i in range(10000):
-    elements = random_elements(n,d)
-    graph = igraph.Graph(n)
-    om = graph.clique_number()
-    ksip= graph.independence_number()
-    fill_edges(elements, graph)
+#for i in range(10000):
+ #   elements = random_elements(n,d)
+  #  graph = igraph.Graph(n)
+   # om = graph.clique_number()
+    #ksip= graph.independence_number()
+    #fill_edges(elements, graph)
 
 ## Some properties of the graph
 #print("\nClique number: ", graph.clique_number())
 #print("Maximal independent set: ", graph.independence_number())
-print("Execution time (ms): ",(time.clock_gettime_ns(time.CLOCK_BOOTTIME)-ts)/1000000)
+#print("Execution time (ms): ",(time.clock_gettime_ns(time.CLOCK_BOOTTIME)-ts)/1000000)
 
 ## Some plots
 #plotDD(elements, colorsX11)
