@@ -18,9 +18,9 @@ import copy
 
 
 # some parameters
-nV = 100
-scale = 5
-nG = 1
+nV = 80
+scale = 4
+nG = 50
 
 toolbar_width = nG
 
@@ -168,7 +168,7 @@ def rid_neighboors2(graph):
     return graph
 
 #better visual style to visualize vertices and their degrees        
-color_dict = {2: '#FF0000', 3: '#0000FF', 1:'#000000' }
+color_dict = {2: '#FF0000', 3: '#0000FF', 1:'#000000', 4: '#00FF00' }
 
 def are_neighbours(M, i1, i2, j1, j2):
     '''
@@ -217,6 +217,8 @@ def hard_edge_col(graph):
         #proper coloration verification
         for i in range(len(Mpure)):
             for j in range(i):
+                #TODO: here it is not over
+                return 0
                 
     
 
@@ -227,22 +229,26 @@ def toolbar():
     sys.stdout.write("\b" * (toolbar_width+1)) # return to start of line, after '['
 
 
+## MAIN
+
+toolbar()
+
 for i in range(nG):
     #print('graph n°'+str(i)+': ', end = "")
-    g = special_graph(nV, 2, 3)
+    g = special_graph(nV, 2, 4)
     igraph.plot(g, "images/SU_om2_ksip4/natgraph_"+str(i)+'.png')
     g = epuration(g)
     degs = g.degree()
     #visual_style = {}
     #visual_style["vertex_color"] = [color_dict[v] for v in degs]
     igraph.plot(g, "images/SU_om2_ksip4/puregraph_"+str(i)+'.png',vertex_color = [color_dict[v] for v in degs])
-    g = rid_neighboors2(g)
+    #g = rid_neighboors2(g)
 
-    degs = g.degree()
-    igraph.plot(g, "images/SU_om2_ksip4/graph_minus2_"+str(i)+'.png',vertex_color = [color_dict[v] for v in degs])
-    toolbar()
-    #sys.stdout.write("-")
-    #sys.stdout.flush()
+    #degs = g.degree()
+    #igraph.plot(g, "images/SU_om2_ksip4/graph_minus2_"+str(i)+'.png',vertex_color = [color_dict[v] for v in degs])
+
+    sys.stdout.write("-")
+    sys.stdout.flush()
 #we observe now the formations of two things: agglomerate of smallest
 #  cycles and bridges.
 # lemma: if we can 3-col the agglomerate of smallest 
