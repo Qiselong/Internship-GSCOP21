@@ -1,0 +1,39 @@
+\documentclass[12pt]{article}
+\usepackage{amsthm}
+
+% collectivised from: https://www.overleaf.com/learn/latex/Theorems_and_proofs#Theorem_styles
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+%
+ezfrtgnhyujtrgeza
+
+Let $G:= (V, E)$ be a bridgless undirected cubic planar graph.
+\begin{lemma}
+    If $G$ is cubic, then $|V|$ is even.
+\end{lemma}
+
+\begin{proof}
+    $2|E| = \sum_{v \in V} d(v) = 3|V| $ \\
+    As $|E|$ must be integer, it follows that we must be able o divide $|V|$ by 2.
+\end{proof}
+
+\begin{lemma}
+    If $G$ is cubic, planar and bridgless, then $G$ has a chromatic index of 3. 
+\end{lemma}
+
+
+Consider the graph $G':= (V', E')$, obtained from $G$ by removing an edge $xy$, adding a vertex $z$, and adding edges $xz$ and $yz$. 
+\begin{lemma}
+    $G'$ has a chromatic index of 4.
+\end{lemma}
+
+\begin{proof}
+    As $\Delta(G') = 3$; we prove the $\chi'(G') \le 4$ thanks to Vizing's theorem.\\
+    Now consider a matching $M$ of the edges of $E'$. as $|V'| = |V|+1$ is odd, each matching can cover at most $|V|$ vertices,
+    so it can at most contains $\dfrac{|V|}{2}$ edges. However, we have $|E'| = \dfrac{3}{2} |V| + 1$ edges, so we must have $\chi'(G') \ge 4$.
+\end{proof}

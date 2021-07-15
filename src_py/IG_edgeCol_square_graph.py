@@ -6,6 +6,7 @@ import igraph
 import numpy as np
 
 import pandas as pd
+import random
 
 # PARAMETERS
 n = 15
@@ -125,35 +126,43 @@ def KnEdgeColoration(n, printM = False, verbose = False):
                     j = 1
 
     if verbose:
-        M = pd.DataFrame(M, dtype = int)
-        print(M)
-        m = M.values.tolist()
-    
-        L = []
-        for X in m:
-            L = L+X
-
-        while L.count(0)>0:
-            L.remove(0)
-        print(L, end='\n')
-    
-    
-        gKn = igraph.Graph.Adjacency((M.values>0).tolist(), mode='undirected')
-        gKn.es["color_assigned"] = L
-        color_dict = {"1": 'red', "2": 'blue', "3": 'green'}
-    
-
-    #for col_num in gKn.es["color_assigned"]:
-     #   print(color_dict[str(int(col_num))])
-    #print([color_dict[int(col_num)] for col_num in gKn.es["color_assigned"]])    
+        Mpanda = pd.DataFrame(M, dtype = int)
+        print(Mpanda)
+        
+        gKn = igraph.Graph(n)
+        TMP = []
+        for i in range(n):
+            for j in range(i):
+                gKn.add_edge(i,j)
+                TMP.append(M[i][j])
+        gKn.es["color_assigned"] = TMP
+        
+        if n%2 ==1:
+            n+=1
+        color_dict = color_dictionary(n)#{"1" : 'red', "2": 'blue', "3": 'green'} 
 
         igraph.plot(gKn, edge_color = [color_dict[str(int(col_num))] for col_num in gKn.es["color_assigned"]])
     if not(verbose) and printM:
         print(pd.DataFrame(M, dtype=int))
-    return M
+    return M, color_dict
 
 
-print(is_proper_EC(KnEdgeColoration(19, printM=True), True))
+def color_dictionary(n):
+    '''
+    generates a random dictionary of colors of size n. 
+    '''
+    col_dict = {}
+    for i in range(n):
+        col_random = "#"+''.join([random.choice('0123456789ABCDEF') for j in range(6)])
+        col_dict[str(i)] = str(col_random)
+    return col_dict
+
+def super_col_interval(intervals):
+    '''
+    extract a super coloration of intervals.
+    '''
+
+KnEdgeColoration(5, verbose =True)
 
 
 
