@@ -18,9 +18,12 @@ import copy
 
 
 # some parameters
-nV = 80
+nV = 50 
 scale = 4
-nG = 50
+nG = 1
+omega = 2
+delta = 4
+
 
 toolbar_width = nG
 
@@ -50,7 +53,55 @@ def fill_edges(elements, graph):
                 #print(a, b)
     return graph # i think it is unecessary.
 
-def special_graph(n, om=10, delta = 10, gtype='none'):
+def color_dictionary(n):
+    '''
+    generates a random dictionary of colors of size n. 
+    '''
+    col_dict = {}
+    for i in range(n):
+        col_random = "#"+''.join([random.choice('0123456789ABCDEF') for j in range(6)])
+        col_dict[i] = str(col_random) #rq= this is a different version of a function with the same name as here the keys are integers.
+    return col_dict
+
+def plot2D(elements, mode = 'trans1'):
+    '''
+    special 2D plot for squares.
+    Uses elements after the use of special_graph under 'elementsForPlot=True' argument.
+    The colors used are randomised using an intern color dictionary. 
+
+    Modes:
+    trans1  is all edges + LR diagonal; default mode
+    '''
+    n = len(elements)
+    
+    col_dict = color_dictionary(n)
+
+    if mode == 'trans1':
+        for el in range(n):
+            col = col_dict[el]
+            LLx, LLy = elements[el][0][0], elements[el][0][1]
+            plt.plot([LLx, LLx], [LLy, LLy+1], col)
+            plt.plot([LLx+1, LLx+1], [LLy, LLy+1], col)
+            plt.plot([LLx, LLx+1], [LLy+1, LLy+1], col)
+            plt.plot([LLx, LLx+1], [LLy, LLy], col)
+            plt.plot([LLx, LLx+1], [LLy, LLy+1], col)
+    
+    if mode == 'nat':
+        for el in range(n):
+            col = col_dict[el]
+            LLx, LLy = elements[el][0][0], elements[el][0][1]
+            plt.plot([LLx, LLx], [LLy, LLy+1], col)
+            plt.plot([LLx+1, LLx+1], [LLy, LLy+1], col)
+            plt.plot([LLx, LLx+1], [LLy+1, LLy+1], col)
+            plt.plot([LLx, LLx+1], [LLy, LLy], col)   
+    
+    
+    plt.show()
+
+
+
+
+def special_graph(n, om=10, delta = 10, gtype='none', elementsForPlot= False):
     '''
     creates a graph with n vertices and the special properties. 
     '''
@@ -92,6 +143,8 @@ def special_graph(n, om=10, delta = 10, gtype='none'):
 
     graph = fill_edges(elements, graph)
     #print("\nExecution time (ms): ",(time.clock_gettime_ns(time.CLOCK_BOOTTIME)-ts)/1000000)
+    if elementsForPlot:
+        return graph, elements
     return graph
 
 #g = special_graph(nV, 2, 3)
@@ -231,64 +284,20 @@ def toolbar():
 
 ## MAIN
 
-toolbar()
+#toolbar()
 
 for i in range(nG):
     #print('graph n°'+str(i)+': ', end = "")
-    g = special_graph(nV, 2, 4)
+    g, elements = special_graph(nV, omega, delta, elementsForPlot=True)
+    plot2D(elements, mode = 'nat')
     igraph.plot(g, "images/SU_om2_ksip4/natgraph_"+str(i)+'.png')
-    g = epuration(g)
-    degs = g.degree()
-    #visual_style = {}
-    #visual_style["vertex_color"] = [color_dict[v] for v in degs]
-    igraph.plot(g, "images/SU_om2_ksip4/puregraph_"+str(i)+'.png',vertex_color = [color_dict[v] for v in degs])
+    #g = epuration(g)
+    #degs = g.degree()
+    #igraph.plot(g, "images/SU_om2_ksip4/puregraph_"+str(i)+'.png',vertex_color = [color_dict[v] for v in degs])
+    
     #g = rid_neighboors2(g)
-
     #degs = g.degree()
     #igraph.plot(g, "images/SU_om2_ksip4/graph_minus2_"+str(i)+'.png',vertex_color = [color_dict[v] for v in degs])
 
-    sys.stdout.write("-")
-    sys.stdout.flush()
-#we observe now the formations of two things: agglomerate of smallest
-#  cycles and bridges.
-# lemma: if we can 3-col the agglomerate of smallest 
-# cycles then we can 3-col  agglomerates linked by bridges.
-#proof: remove a bridge. denote by x it's end on one agglomerate and 
-# y on the other end.
-# on x, there's at most 2 edges going (the 3rd being the bridge edge)
-# so pick a color that's not taken yet. call it 1.
-
-# \                 /
-#   2              ?
-#     \          /       
-# - 3 - x - 1 - y - ? -
-#   
-# if this coloration is acceptable, it's finished. 
-# if it's not, it means at least an edge on y is colored in 1. 
-# suppose the other one is colored in 2. Then, swap for the y-agglomerate 
-# the colors 1 and 3. Now the coloration is acceptable. 
-
-# now to end the proof we must show that agglomerate of cycles are always 
-# 3-col.
-# def: an agglomerate of cycles is cycles of size at least 4 that share 
-# at least common edge. In such a graph, no vertex has more than 3 neighbours.
-
-#lemma: you can 3-col any Cycle of size at least 4.
-# proof: you can 2-col every even cycle. For odd cycles: split a 1-edge in 2:
-# one get col 1 and the other 3.
-#    .. - 2 - 1 - 2 - ..
-#  .. - 2 - 1 - 3 - 2 - .. 
-
-# lemma: for every n-cycle (n>=4 ley's say) there is 3.2^(n-2) ways to 
-# 3-col it
-# proof: 3 choice for 1st edge, 2 for 2nd, ... 2 for n-1, 1 for n.
-
-#suppose by induction that an agglomerate of smallest cycles of size p was 3-col.
-# we add a cycle of size n in it. 
-# suppose it has at most two cycles neighbouring it.  
-# if it has only one neighbour, it is obvious:
-
-# let call m the legth of the border between him and his neighbour.
-# if m = 2, then we add at least 2 other edges otherwise we have 
-# a triangle.
-# suppose m > ...
+    #sys.stdout.write("-")
+    #sys.stdout.flush()
