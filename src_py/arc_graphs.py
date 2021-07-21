@@ -11,9 +11,11 @@ import sys
 #some parameters
 
 nG = 10
-nV = 30
+nV = 200
 scale= 1
-modeG = 'igraph'
+modeG = 'full'
+size = 5 #relative parameter for custom plot 
+accuracy = 200 #accuracy for custom plot
 
 
 def main():
@@ -95,12 +97,66 @@ def intersection(elements, mode='graph', path= "default"):
                 g.add_edge(ei, ej)
     
     if mode == 'igraph':
-        out = igraph.plot(g)
-        out.save( "images/arc-graphs/"+path+".png")
+        igraph.plot(g,"images/arc-graphs/"+path+".png")
         return g
 
     if mode == 'default':
         return g
+
+    if mode=='plt.plot' or mode == 'plt.save' or mode=='full':
+        custom_plot(elements, mode)
+        if mode == 'full':
+            igraph.plot(g,"images/arc-graphs/"+path+".png")
+        return g
+
+def color_dictionary(n):
+    '''
+    generates a random dictionary of colors of size n. 
+    '''
+    col_dict = {}
+    for i in range(n):
+        col_random = "#"+''.join([random.choice('0123456789ABCDEF') for j in range(6)])
+        col_dict[i] = str(col_random) #rq= this is a different version of a function with the same name as here the keys are integers.
+    return col_dict
+
+def custom_plot(elements, mode):
+    '''
+    custom matplotlib.pyplot plot.
+    3 mode admissible:
+    'plt.plot' mode: custom matplotlib plot
+    'plt.save' mode: custom matplotlib save
+    'full' mode: custom matplotlib save 
+    '''
+
+
+    #quick sort by size in order to have visually satisfaying result
+    #dtype1 = [('left', float), ('right', float), ('diff', float)] #see: https://numpy.org/doc/stable/reference/generated/numpy.sort.html
+    #LNP = np.array(elements, dtype = dtype1)
+    #print(LNP[0])
+    #for i in range(len(LNP)):
+     #   LNP[i,2] = LNP[i,1]-LNP[i,0]
+    #L = np.sort(LNP, order = 'diff')
+    L = np.array(elements)
+
+    #dictionary for randomized colors
+    col_dict = color_dictionary(len(L))
+
+    n =len(elements)
+    step = size/n
+    t = np.linspace(0, 1, accuracy, endpoint=False )
+    for i in range(len(L)):
+        theta = t*(L[i, 1]-L[i,0])+ L[i, 0]
+        R_i = 1 + step*i
+        X = R_i*np.cos(theta)
+        Y = R_i*np.sin(theta)
+        plt.plot(X, Y, col_dict[i])
+
+    if mode == 'plt.plot' or mode == 'full':
+        plt.show() 
+
+
+
+
 
 
 
