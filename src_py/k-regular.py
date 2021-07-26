@@ -83,6 +83,8 @@ def k_reg_generation(nV_tmp, k):
 # a function verifies that the case is conform:
 # enough edges on each line, etc.
 
+#TODO Let A be the adjacency matrix of a graph. Then the graph is regular if and only if j = ( 1 , … , 1 ) {\displaystyle {\textbf {j}}=(1,\dots ,1)} {\textbf {j}}=(1,\dots ,1) is an eigenvector of A.
+
 def case_study(M, k, nV):
     '''
     verifies that M correspond to a valid case of a k-regular graph.
