@@ -18,11 +18,11 @@ import copy
 
 
 # some parameters
-nV = 50 
+nV = 15
 scale = 4
 nG = 1
-omega = 2
-delta = 4
+omega = 3
+delta = 6
 
 
 toolbar_width = nG
