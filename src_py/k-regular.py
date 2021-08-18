@@ -2,9 +2,9 @@
 
 #parameters:
 planar = False
-nV = 8 #note that nV must be even if k is odd
+nV = 4 #note that nV must be even if k is odd
 k = 3
-name = 'images/k-regular/'+ '3_6' +'.png'
+name = 'images/k-regular/'+ 'test' +'.png'
 limit = 10000
 mode = 'count'
 
@@ -20,6 +20,12 @@ import numpy as np
 
 
 def main():
+    if mode == 'debug':
+        case = 64351
+        caseB = base_convert(case, 2)
+        print(caseB)
+        m = case_generation(case, nV)
+        print(m)
     if mode == 'generation':
         g = None
         while g == None:
@@ -124,7 +130,7 @@ def case_generation(case, nV):
     for i in range(nV):
         for j in range(i):
             #print(i, j, int(j*(j-1)/2 +i))
-            M[i,j] = caseB[int(j*(j-1)/2 +i)] #for more details about this formula: subscribe to my religious newsletter
+            M[i,j] = caseB[int(i*(i-1)/2 +j)] #for more details about this formula: subscribe to my religious newsletter
 
     return M + M.transpose()
 

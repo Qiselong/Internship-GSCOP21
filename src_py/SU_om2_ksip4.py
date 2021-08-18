@@ -21,8 +21,8 @@ import copy
 nV = 15
 scale = 4
 nG = 1
-omega = 3
-delta = 6
+omega = 2
+delta = 3
 
 
 toolbar_width = nG
