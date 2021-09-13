@@ -1,0 +1,2 @@
+All the folders contains a read_me file explaining what was the purpose of them and describing what the images produced are or should be.
+For more information about what the algorithm were and how they were working, refer to the files in src_py.

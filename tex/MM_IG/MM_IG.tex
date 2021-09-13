@@ -2,6 +2,7 @@
 
 \usepackage{amsthm}
 \usepackage{graphicx}
+\usepackage{float}
 
 \begin{document}
 
@@ -24,7 +25,9 @@
     The proof is done by induction on $|I|$.\\
     For $|I|=1$, the algorithm gives $M=\emptyset$; which is correct. \\
 
-    \textit{Induction step}\\
+    \textit{Induction step}
+    \vspace{\baselineskip}
+
     Suppose the algorithm gives the correct answer for $n-1$ intervals. Let $|I| = n$, and $M$ be the matching computed by the greedy algorithm for $I-i_n$. Let $U$ be the set of unmatched intervals. \\
     If $U$ is empty, when treating $I$ the algorithm will give the same answer: $M$.\\
     Let $U$ be non empty. Let $i_k \in U$. If $i_k \cap i_n \ne \emptyset$, the algorithm will return $M+(i_k, i_n)$. 
@@ -34,39 +37,118 @@
         \item If $i_i$ could not be matched in $I-i_n$, then $i_i$ will be left unmatched; because if it was possible to match it with $i_n$; then $i_i$ and $i_k$ would have not be unmatched $I-i_n$. 
     \end{itemize} 
 
-    \textit{Augmentating path}\\
+    \textit{Augmentating path}
+    \vspace{\baselineskip}
+
     Suppose now that $U$ is non empty, and that for some $i_k \in U$ we can find a shortest augmentating path $P: (i_k, j_1, j_1', j_2, j_2', ... , j_m', i_n)$, namely:
     \begin{itemize}
         \item $i_k \cap j_1 \ne \emptyset$ and $j_m'\cap i_n \ne \emptyset$.
-        \item $\forall x<m, j_x' \cap j_{x+1} \ne \emptyset$.
-        \item $(j_x$, $j_x') \in M$.
+        \item $\forall x \in [1, m-1], j_x' \cap j_{x+1} \ne \emptyset$.
+        \item $\forall x \in [1, m-1], (j_x$, $j_x') \in M$.
         
     \end{itemize}
 
-    Until the end of the proof, we will use the notation $r_k, r_x, r_x'$ for the right-end points of respectively $i_k, j_x, j_x'$, and $l_k, l_x, l_x'$ for left-end points.  \\
+    Until the end of the proof, we will use the notation $r_k, r_x, r_x'$ for the right-end points of respectively $i_k, j_x, j_x'$. 
+    \vspace{\baselineskip}
 
-    \textit{Decreasing property}\\
-    We shall now prove by a second induction that $\forall x, r_{x+1}' < r_x'$.\\
-    First, observe than $r_1 < r_k$ and $r_1' < r_k$ as otherwise, $i_k$ would not be left unmatched in the first place. \\
-    As for the couple $j_2, j_2'$, we have either:
+    \textit{Decreasing property}
+    \vspace{\baselineskip}
+
+    We shall now prove by a second induction that $\forall x \in [0, m-1], r_{x+1}' < r_x'$ and $r_{x+1} < r_x$. We only need the first property to conclude, but we need both to do the proof. \\
+    First let's prove this for $j_1, j_1', j_2$ and $j_2'$:
+
+    Observe that if both $j_1, j_1'$ overlap $i_k$, then: $r_1 < r_k$ and $r_1' < r_k$; otherwise, $i_k$ would have matched with either $j_1$ or $j_1'$. It is also possible that $r_1 > i_k$; and in that case $r_1' < r_k$ and $j_1' \cap i_k = \emptyset$. \\
+    Suppose for a moment that $r_2 > r_1$: 
     \begin{itemize}
-        \item case 1: $r_1' < l_k$ and $r_1'< r_2$. As $j_2'$ and $j_1'$ are not matched, they must be disconnected, meaning $r_2' < l_1' \Rightarrow r_2' < r_1'.$ 
-        \item case 2: $r_1' > l_k$. As $P$ is the shortest, we have $r_2 < l_k$. As $j_2$ and $j_2'$ are matched, $r_2' < min(r_1, r_1') \Rightarrow r_2' < r_1'$.  
-    \end{itemize}
-    \begin{figure}[h]
+        \item case 1: if $r_1' < r_1$, then $j_2 \cap i_k \ne  \emptyset$, so we can cut $j_1, j_1'$ from $P$.
+        \item case 2: if $r_1 < r_1'$, then either $j_2$ overlap $i_k$ as in case 1; either $j_1$ and $i_k$ would be matched as in Fig 2.  
+        \item case 3: if $r_1 > r_k$, then $j_2 \cap i_k \ne  \emptyset$, so we can cut $j_1, j_1'$ from $P$.
+    \end{itemize} 
+
+    \begin{figure}[H]
         \centering
-        \includegraphics[scale=0.20]{case1.png}
-        \caption{case 1.}
-        \includegraphics[scale=0.20]{case_2.png}
-        \caption{case 2.}
+        \includegraphics[scale= 0.2]{init_1.png}
+        \caption{Skipping $j_1, j_1'$ would be shorter.}
+        \includegraphics[scale = 0.2]{init_2.png}
+        \caption{$j_1$ and $i_k$ would be matched. }
+        \includegraphics[scale = 0.2]{init_3.png}
     \end{figure}
 
-    \textit{Induction step}\\
-    The induction step is proved in exactly the same way, by replacing $i_k$ by $j_p'$; $j_1, j_1'$ by $j_{p+1}, j_{p+1}'$, etc.\\
-    
-    \textit{Conclusion}\\
-    In definitive, we have $r_m' < r_1' < r_k$. It is thus a contradiction with the fact that $j_m' \cap i_n \ne \emptyset$.
+    Now we know that $r_2 < r_1$. Let's suppose for a moment that $r_2' > r_1'$. Notice that the smallest element among $\{r_1, r_2, r_1', r_2'\}$ is either $r_1'$ or $r_2$. 
+    In any case the algorithm would have match the intervals differently.     
 
+    \textit{Induction step}
+    \vspace{\baselineskip}
+
+    Suppose $x > 1$, $r_x < r_{x+1}$ and $r_x' < r_{x+1}'$. \\
+    We will investigate four different cases:
+    \begin{itemize}
+        \item 1.1 : $r_{x-1} > r_{x-1}'$ and $r_x > r_x'$
+        \item 1.2 : $r_{x-1} > r_{x-1}'$ and $r_x'>r_x$
+        \item 2.1 : $r_{x-1}' > r_{x-1}$ and $r_x > r_x'$
+        \item 2.2 : $r_{x-1}' > r_{x-1}$ and $r_x' > r_x$
+    \end{itemize}
+
+    \textit{Case 1.1}
+    One of two things are possible:
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale= 0.2]{induction_case_1.1_0.png}
+        \caption{Subcase 1.1.1: $r_x < r_{x-1}'$}
+        \includegraphics[scale=0.2]{induction_case_1.1_1.png}
+        \caption{Subcase 1.1.2: $r_x > r_{x-1}'$}
+    \end{figure}
+
+    For Subcase 1.1.1, as $r_x < r_{x-1}'$, it means that $r_x \in j_{x-1}'$.
+    Consequently, if $r_{x+1} > r_x'$, we must have $r_x \in j_{x+1}$. In other words, $j_{x-1}'$ and $j_{x+1}$ share a common point in $r_x$, so we could remove $j_x, j_x'$ from $P$, so we must have $r_{x+1} < r_x$. \\
+    Suppose now that $r_{x+1}' > r_x'$: observe that as $r_{x+1} < r_x$, the algorithm has an incentive to match $j_x'$ with $j_{x+1}$; and the only reason they are not matched is because $j_{x+1}$ and $j_{x+1}'$ were matched first in the execution, ie $r_{x+1} < r_{x+1}'$.
+    
+    \vspace{\baselineskip} 
+    For subcase 1.1.2: suppose for a moment that $r_{x+1} > r_{x}$. The exact same argument with $r_{x-1}'$ in place of $r_x$ as in 1.1.1 still holds here, so $r_{x+1} < r_x$.\\
+    Suppose now that $r_{x+1}' > r_x'$. Then the algorithm should have matched $j_{x+1}$ and $j_x'$. Thus $r_{x+1}' < r_x'$ for case 1.1.\\
+
+    
+
+    \textit{Case 1.2}
+    \vspace{\baselineskip}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale= 0.3]{induction_case_1.2.png}
+        \caption{$r_{x-1} > r_{x-1}'$ and $r_x'>r_x$}
+    \end{figure}
+
+    Let $l_{x+1}$ be the left end-point of $j_{x+1}$. Suppose $r_{x+1} > r_x$. If $l_{x+1} < r_x$, then $r_x \in j_{x+1}$. As $r_x \in j_{x-1}'$, it means we could remove $j_x, j_x'$ from $P$. \\
+    If $l_{x+1} > r_x$, notice we should at least have $l_{x+1} < r_x'$. As $r_x' < r_{x-1}'$, we have $r_x' \in j_{x-1}'$. So $l_{x+1} \in [r_x, r_x'] \subset j_{x-1}'$; meaning we could remove $j_x, j_x'$ from $P$. Thus, $r_{x+1} < r_x$. \\
+    As $r_{x+1}'<r_x'$, the algorithm has an incentive to match $j_x'$ with $j_{x+1}$. As for the 1.1.x cases, the only reason for it to not happen is that $j_{x+1}$ is already matched with $j_{x+1}'$, because $r_{x+1}' < r_x'$.
+
+    \vspace{\baselineskip}
+
+    \textit{Case 2.1}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale= 0.3]{induction_case_2.1.png}
+        \caption{$r_{x-1}' > r_{x-1}$ and $r_x > r_x'$}
+    \end{figure}
+
+    If $r_{x+1} > r_x$, then we can skip $j_x, j_x'$ as in case 1.1. So we must have $r_{x+1}<r_x$.  \\
+    If $r_{x+1}' > r_x'$, then $j_{x+1}$ would be matched with $j_x'$ as it ends before $j_{x+1}$. Thus $r_{x+1}' < r_x'$. \\
+
+    \textit{Case 2.2}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale= 0.3]{induction_case_2.2.png}
+        \caption{$r_{x-1}' > r_{x-1}$ and $r_x' > r_x$}
+    \end{figure}
+
+    Suppose $r_{x+1} > r_x$. Using similar arguments as in case 1.2, we should conclude that we can remove $j_x, j_x'$ from $P$. So $r_{x+1} < r_x$. \\
+    Suppose now $r_{x+1}' > r_x'$. Then $j_{x+1}$ would be matched with $j_x'$ (or $j_x$ if these overlaps).\\
+
+    \textit{Conclusion} \\
+    We have showned by induction that $\forall x>1, r_{x+1}' < r_x'$. This is a contradiction with the properties of $P$: there is no way $j_m'$ could possibly overlap $i_n$. \\
+    There is no augmentating path; thus, the greedy algorithm is optimal. \\
+
+    
 \end{proof}
 
 \end{document}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.1.12)  27 AUG 2021 01:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2021.1.12)  9 SEP 2021 14:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -51,96 +51,145 @@ File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen135
 \Gin@req@width=\dimen136
+) (/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count175
+\float@exts=\toks21
+\float@box=\box45
+\@float@everytoks=\toks22
+\@floatcapt=\box46
 ) (/usr/share/texlive/texmf-dist/tex/latex/l3backend/l3backend-pdfmode.def
 File: l3backend-pdfmode.def 2020-02-03 L3 backend support: PDF mode
-\l__kernel_color_stack_int=\count175
-\l__pdf_internal_box=\box45
+\l__kernel_color_stack_int=\count176
+\l__pdf_internal_box=\box47
 ) (/home/thomas/Bureau/Internship_GSCOP/Internship-GSCOP21/tex/MM_IG/MM_IG.aux)
 \openout1 = `MM_IG.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 7.
+LaTeX Font Info:    ... okay on input line 7.
  (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count176
+\scratchcounter=\count177
 \scratchdimen=\dimen137
-\scratchbox=\box46
-\nofMPsegments=\count177
-\nofMParguments=\count178
-\everyMPshowfont=\toks21
-\MPscratchCnt=\count179
+\scratchbox=\box48
+\nofMPsegments=\count178
+\nofMParguments=\count179
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count180
 \MPscratchDim=\dimen138
-\MPnumerator=\count180
-\makeMPintoPDFobject=\count181
-\everyMPtoPDFconversion=\toks22
+\MPnumerator=\count181
+\makeMPintoPDFobject=\count182
+\everyMPtoPDFconversion=\toks24
 ) (/usr/share/texlive/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-\c@definition=\count182
-\c@theorem=\count183
+\c@definition=\count183
+\c@theorem=\count184
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 23.
+(Font)              <12> on input line 24.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 23.
+(Font)              <8> on input line 24.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 23.
+(Font)              <6> on input line 24.
 
-Underfull \hbox (badness 10000) in paragraph at lines 23--26
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 46--47
+Underfull \hbox (badness 10000) in paragraph at lines 24--27
 
  []
 
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-<case1.png, id=15, 857.2025pt x 459.7175pt>
-File: case1.png Graphic file (type png)
-<use case1.png>
-Package pdftex.def Info: case1.png  used on input line 58.
-(pdftex.def)             Requested size: 171.43745pt x 91.94186pt.
-<case_2.png, id=17, 818.05624pt x 434.62375pt>
-File: case_2.png Graphic file (type png)
-<use case_2.png>
-Package pdftex.def Info: case_2.png  used on input line 60.
-(pdftex.def)             Requested size: 163.60834pt x 86.9232pt.
+<init_1.png, id=15, 803.0pt x 266.9975pt>
+File: init_1.png Graphic file (type png)
+<use init_1.png>
+Package pdftex.def Info: init_1.png  used on input line 70.
+(pdftex.def)             Requested size: 160.59715pt x 53.39854pt.
+<init_2.png, id=17, 1029.8475pt x 266.9975pt>
+File: init_2.png Graphic file (type png)
+<use init_2.png>
+Package pdftex.def Info: init_2.png  used on input line 72.
+(pdftex.def)             Requested size: 205.96585pt x 53.39854pt.
+<init_3.png, id=18, 879.285pt x 266.9975pt>
+File: init_3.png Graphic file (type png)
+<use init_3.png>
+Package pdftex.def Info: init_3.png  used on input line 74.
+(pdftex.def)             Requested size: 175.85388pt x 53.39854pt.
+ [2 </home/thomas/Bureau/Internship_GSCOP/Internship-GSCOP21/tex/MM_IG/init_1.png> </home/thomas/Bureau/Internship_GSCOP/Internship-GSCOP21/tex/MM_IG/init_2.png> </home/thomas/Bureau/Internship_GSCOP/Internship-GSCOP21/tex/MM_IG/init_3.png>]
+<induction_case_1.1_0.png, id=25, 1449.415pt x 269.005pt>
+File: induction_case_1.1_0.png Graphic file (type png)
+<use induction_case_1.1_0.png>
+Package pdftex.def Info: induction_case_1.1_0.png  used on input line 96.
+(pdftex.def)             Requested size: 289.87787pt x 53.80003pt.
+<induction_case_1.1_1.png, id=26, 1148.29pt x 269.005pt>
+File: induction_case_1.1_1.png Graphic file (type png)
+<use induction_case_1.1_1.png>
+Package pdftex.def Info: induction_case_1.1_1.png  used on input line 98.
+(pdftex.def)             Requested size: 229.65393pt x 53.80003pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 64--66
+Underfull \hbox (badness 10000) in paragraph at lines 107--109
 
  []
 
-[2 </home/thomas/Bureau/Internship_GSCOP/Internship-GSCOP21/tex/MM_IG/case1.png> </home/thomas/Bureau/Internship_GSCOP/Internship-GSCOP21/tex/MM_IG/case_2.png>] (/home/thomas/Bureau/Internship_GSCOP/Internship-GSCOP21/tex/MM_IG/MM_IG.aux) ) 
+<induction_case_1.2.png, id=27, 1148.29pt x 269.005pt>
+File: induction_case_1.2.png Graphic file (type png)
+<use induction_case_1.2.png>
+Package pdftex.def Info: induction_case_1.2.png  used on input line 117.
+(pdftex.def)             Requested size: 344.48965pt x 80.70212pt.
+[3 </home/thomas/Bureau/Internship_GSCOP/Internship-GSCOP21/tex/MM_IG/induction_case_1.1_0.png> </home/thomas/Bureau/Internship_GSCOP/Internship-GSCOP21/tex/MM_IG/induction_case_1.1_1.png>]
+<induction_case_2.1.png, id=33, 700.6175pt x 269.005pt>
+File: induction_case_2.1.png Graphic file (type png)
+<use induction_case_2.1.png>
+Package pdftex.def Info: induction_case_2.1.png  used on input line 130.
+(pdftex.def)             Requested size: 210.18686pt x 80.70212pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 134--136
+
+ []
+
+<induction_case_2.2.png, id=34, 700.6175pt x 269.005pt>
+File: induction_case_2.2.png Graphic file (type png)
+<use induction_case_2.2.png>
+Package pdftex.def Info: induction_case_2.2.png  used on input line 140.
+(pdftex.def)             Requested size: 210.18686pt x 80.70212pt.
+[4 </home/thomas/Bureau/Internship_GSCOP/Internship-GSCOP21/tex/MM_IG/induction_case_1.2.png> </home/thomas/Bureau/Internship_GSCOP/Internship-GSCOP21/tex/MM_IG/induction_case_2.1.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 144--146
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 147--150
+
+ []
+
+[5 </home/thomas/Bureau/Internship_GSCOP/Internship-GSCOP21/tex/MM_IG/induction_case_2.2.png>] (/home/thomas/Bureau/Internship_GSCOP/Internship-GSCOP21/tex/MM_IG/MM_IG.aux) ) 
 Here is how much of TeX's memory you used:
- 1285 strings out of 483183
- 18907 string characters out of 5966292
- 249877 words of memory out of 5000000
- 16330 multiletter control sequences out of 15000+600000
+ 1382 strings out of 483183
+ 20556 string characters out of 5966292
+ 250024 words of memory out of 5000000
+ 16417 multiletter control sequences out of 15000+600000
  536364 words of font info for 37 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 30i,6n,25p,292b,283s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 30i,7n,25p,352b,285s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/thomas/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1200.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on /home/thomas/Bureau/Internship_GSCOP/Internship-GSCOP21/tex/MM_IG/MM_IG.pdf (2 pages, 114954 bytes).
+Output written on /home/thomas/Bureau/Internship_GSCOP/Internship-GSCOP21/tex/MM_IG/MM_IG.pdf (5 pages, 130376 bytes).
 PDF statistics:
- 53 PDF objects out of 1000 (max. 8388607)
- 35 compressed objects within 1 object stream
+ 74 PDF objects out of 1000 (max. 8388607)
+ 41 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 

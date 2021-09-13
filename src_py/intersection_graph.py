@@ -27,6 +27,14 @@ colorsX11 = ['#FF0000', '#00FFFF', '#000000', '#0000FF', '#8A2BE2', '#A52A2A', '
 
 elements = [] # list of our elements
 
+def main():
+    elements = random_elements(n,d)
+    plotDD(elements, colorsX11)
+    g = igraph.Graph(n) #creats an empty graph with n vertices
+    g = fill_edges(elements,g)
+    print(g)
+    igraph.plot(g, "images/test.png")
+
 def intersection(eA, eB):
     '''
     determines if eA and eB are intersecting or not using the projections. 
@@ -43,7 +51,7 @@ def intersection(eA, eB):
 
 def fill_edges(elements, graph):
     '''
-    fill graph (of type igraph) with the connections of elements, determined by the intersection method. 
+    fill graph (of type igraph) with the connections of elements, determined by the intersection function. 
     '''
     for a in range(len(elements)):
         for b in range(a):
@@ -87,22 +95,4 @@ def plotDD(elements, colors):
             axs[di].plot([e[0][di], e[1][di]],[ei*0.2, ei*0.2], color = colors[ei])
     plt.show()
 
-#ts = time.clock_gettime_ns(time.CLOCK_BOOTTIME)
-
-
-
-#for i in range(10000):
- #   elements = random_elements(n,d)
-  #  graph = igraph.Graph(n)
-   # om = graph.clique_number()
-    #ksip= graph.independence_number()
-    #fill_edges(elements, graph)
-
-## Some properties of the graph
-#print("\nClique number: ", graph.clique_number())
-#print("Maximal independent set: ", graph.independence_number())
-#print("Execution time (ms): ",(time.clock_gettime_ns(time.CLOCK_BOOTTIME)-ts)/1000000)
-
-## Some plots
-#plotDD(elements, colorsX11)
-#igraph.plot(graph, vertex_color = colorsX11)
+main()
